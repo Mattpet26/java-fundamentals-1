@@ -38,13 +38,16 @@ public class Main {
   }
   public static void clock(){
     String test ="";
+    int counter = 0;
     while(true){
       LocalDateTime now = LocalDateTime.now();
       DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-YYY HH:mm:ss");
       String formatDateTime = now.format(format);
+      counter++;
 
       if(!test.equals(formatDateTime)){
-        System.out.println(formatDateTime);
+        System.out.println(formatDateTime + " " + counter + "Hz");
+        counter = 0;
       }
       test = formatDateTime;
     }
