@@ -1,1 +1,4 @@
-# java-fundamentals-1
+Resources:
+
+Time question solved here
+https://www.javatpoint.com/java-localdatetime
