@@ -9,11 +9,20 @@ import static org.junit.Assert.*;
 public class AppTest {
     @Test public void testAppHasAGreeting() {
         App classUnderTest = new App();
-        High: 72
-        Low: 51
-        Never saw temperature: 63
-        Never saw temperature: 67
-        Never saw temperature: 68
-        Never saw temperature: 69
+        String oneError = "Line 4: Missing semicolon.";
+        String oneActual = App.theLintr("src/main/resources/oneError.js");
+        assertEquals("Should be missing one semicolon", oneError, oneActual);
+
+        String fewErrors = "Line1: Missing semicolon.\n" +
+                "Line3: Missing semicolon.\n" +
+                "Line3: Missing semicolon.";
+        String fewActual = App.theLintr("src/main/resources/fewErrors.js");
+        assertEquals("Should be missing few semicolon", fewErrors, fewActual);
+
+        String manyErrors = "Line3: Missing semicolon.\n" +
+                "Line5: Missing semicolon.\n" +
+                "Line11: Missing semicolon.";
+        String manyActual = App.theLintr("src/main/resources/fewErrors.js");
+        assertEquals("Should be missing many semicolon", manyErrors, manyActual);
     }
 }

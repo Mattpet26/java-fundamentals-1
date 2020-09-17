@@ -3,12 +3,39 @@
  */
 package linter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class App {
-    HashSet<Integer> uniqueTemp = new HashSet<>();
-    int[][] weeklyMonthTemperatures = {
-            {66, 64, 58, 65, 71, 57, 60},
-            {57, 65, 65, 70, 72, 65, 51},
-            {55, 54, 60, 53, 59, 57, 61},
-            {65, 56, 55, 52, 55, 62, 57}
-    };
+    public static void main (String[] args){
+        String returnString = theLintr("src/main/resources/gates.js");
+        System.out.println(returnString);
+    }
+    public static String theLintr(String filePath) {
+        Scanner jsFile;
+        try {
+            jsFile = new Scanner(new File(filePath));
+        } catch (FileNotFoundException e) {
+            System.out.println("Oops looks like something went wrong");
+        }
+        int lineNumb = 0;
+        String errorString = "";
+
+        while (jsFile.hasNextLine()) {
+            lineNumb++;
+            String temp = jsFile.nextLine();
+            if (!temp.isBlank()) {
+                char endChar = temp.charAt(temp.length() - 1);
+                if (!(endChar == ';' || endChar == '{' || endChar == '}' || temp.contains("if"))) {
+                    if (errorString.isBlank()) {
+                        errorString = "Line " + lineNumb + ": Missing semicolon.";
+                    } else {
+                        errorString = errorString + "\nLine" + lineNumb + " :Missing semicolon.";
+                    }
+                }
+            }
+        }
+        return errorString;
+    }
 }
