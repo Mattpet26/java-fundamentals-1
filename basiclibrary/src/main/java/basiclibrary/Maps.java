@@ -32,6 +32,7 @@ public class Maps {
 
         int winNum = Integer.MIN_VALUE;
         String winString ="";
+        int mostVotes = 0;
 
         for (String vote : votes) {
             if(uniqueVotes.containsKey(vote)){
@@ -40,7 +41,7 @@ public class Maps {
                 uniqueVotes.put(vote, 0);
             }
         }
-        int mostVotes = 0;
+
         for(String candidate : uniqueVotes.keySet()){
             int totalVote = uniqueVotes.get(candidate);
             if(totalVote > mostVotes){
