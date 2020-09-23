@@ -1,35 +1,41 @@
 package inheritance;
 
-public class Review{
-    private String restType;
-    private String foodQual;
-    private int stars;
+public class Review {
 
-    public Review(String restType, String foodQual, stars) {
-        this.restType = restType;
-        this.foodQual = foodQual;
+    private String author;
+    private String body;
+    private int stars;
+    private Restaurant restaurant;
+
+    public Review(String author, String body, int stars, Restaurant restaurant) {
+        this.author = author;
+        this.body = body;
         this.stars = stars;
+        this.restaurant = restaurant;
+
+        restaurant.addReview(this);
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "author='" + author + '\'' +
+                ", body='" + body + '\'' +
+                ", stars=" + stars +
+                ", restaurant=" + restaurant +
+                '}';
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
     public int getStars() {
         return stars;
     }
-    public String getRestType() {
-        return restType;
-    }
 
-    public void setRestType(String restType) {
-        this.restType = restType;
-    }
-
-    public String getFoodQual() {
-        return foodQual;
-    }
-
-    public void setFoodQual(String foodQual) {
-        this.foodQual = foodQual;
-    }
-
-    public String toString(){
-        return String.format("Fast food is bad quality", restType, foodQual);
-    }
 }

@@ -1,63 +1,45 @@
 package inheritance;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Restaurant {
-    private String name;
-    private String priceCat;
-    private float stars;
-    private int numReview = 0;
-    private ArrayList<Review> listOfRev = new ArrayList<>();
+public class Restaurant{
 
-    public Restaurant(String name, String priceCat, int stars) {
+    public String name;
+    private int stars = 0;
+    public int priceCat;
+    private LinkedList<Review> reviews = new LinkedList<>();
+
+    public Restaurant(String name, int priceCat) {
         this.name = name;
         this.priceCat = priceCat;
-        this.stars = stars;
     }
-    public String getName(){
-        return this.name;
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", stars=" + stars +
+                ", priceCategory=" + priceCat +
+                ", reviewList=" + reviews +
+                '}';
     }
-    public void setName(String newName){
-        this.name = newName;
+    public void addReview(Review review) {
+        reviews.addFirst(review);
+        addStars();
     }
-    public String getPriceCat() {
-        return priceCat;
+    private void addStars() {
+        int total = reviews.stream().mapToInt(Review::getStars).sum();
+        stars = total / reviews.size();
     }
-    public void setPriceCat(String priceCat) {
-        this.priceCat = priceCat;
+    public String getName() {
+        return name;
     }
     public int getStars() {
         return stars;
     }
-    public void setStars(int stars) {
-        float newStarCount = this.stars + stars;
-        this.stars = newStarCount/numReview;
+    public int getPriceCategory() {
+        return priceCat;
     }
-
-    public ArrayList<Review> getListOfRev() {
-        return listOfRev;
-    }
-
-    public void setListOfRev(ArrayList<Review> listOfRev) {
-        this.listOfRev = listOfRev;
-    }
-
-    public String toString(){
-        return String.format("{%s} has {%d} stars, and {%s} money", name, stars, priceCat);
-    }
-    public String addRestaurant(String name, String priceCat, int stars){
-        return String.format("Added %s as a Restaurant", name);
-    }
-
-    public String addReview(String restType, String foodQual, stars){
-        Review newReview = new Review(restType, foodQual);
-        listOfRev.add(newReview);
-        numReview++;
-        this.setStars(newReview.getStars());
-
-        for(Review taters : listOfRev){
-            System.out.println(taters);
-        }
-        return String.format("I gave %s %d stars because they are too %s. Their food is %s for a %s", name, stars, restType, restType, foodQual);
+    public LinkedList<Review> getReviewList() {
+        return reviews;
     }
 }
